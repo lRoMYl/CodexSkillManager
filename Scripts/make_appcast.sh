@@ -32,6 +32,76 @@ NOTES_HTML="${ZIP_DIR}/${ZIP_BASE}.html"
 KEEP_NOTES=${KEEP_SPARKLE_NOTES:-0}
 if [[ -x "$ROOT/Scripts/changelog-to-html.sh" ]]; then
   "$ROOT/Scripts/changelog-to-html.sh" "$VERSION" >"$NOTES_HTML"
+elif [[ -n "${SPARKLE_RELEASE_NOTES_FILE:-}" && -f "${SPARKLE_RELEASE_NOTES_FILE:-}" ]]; then
+  python3 - <<'PY' "${SPARKLE_RELEASE_NOTES_FILE}" "$NOTES_HTML" "$ZIP_BASE"
+import sys
+from pathlib import Path
+
+notes_path = Path(sys.argv[1])
+out_path = Path(sys.argv[2])
+title = sys.argv[3]
+lines = [line.strip() for line in notes_path.read_text().splitlines()]
+items = [line[2:].strip() for line in lines if line.startswith(("- ", "* "))]
+paras = [line for line in lines if line and not line.startswith(("- ", "* "))]
+
+body = []
+if paras:
+  for p in paras:
+    body.append(f"<p>{p}</p>")
+if items:
+  body.append("<ul>")
+  for item in items:
+    body.append(f"<li>{item}</li>")
+  body.append("</ul>")
+
+html = "\n".join([
+  "<!doctype html>",
+  "<html lang=\"en\">",
+  "<meta charset=\"utf-8\">",
+  f"<title>{title}</title>",
+  "<body>",
+  f"<h2>{title}</h2>",
+  *body,
+  "</body>",
+  "</html>",
+])
+out_path.write_text(html)
+PY
+elif [[ -f "/tmp/codexskillmanager-release-notes-${VERSION}.md" ]]; then
+  python3 - <<'PY' "/tmp/codexskillmanager-release-notes-${VERSION}.md" "$NOTES_HTML" "$ZIP_BASE"
+import sys
+from pathlib import Path
+
+notes_path = Path(sys.argv[1])
+out_path = Path(sys.argv[2])
+title = sys.argv[3]
+lines = [line.strip() for line in notes_path.read_text().splitlines()]
+items = [line[2:].strip() for line in lines if line.startswith(("- ", "* "))]
+paras = [line for line in lines if line and not line.startswith(("- ", "* "))]
+
+body = []
+if paras:
+  for p in paras:
+    body.append(f"<p>{p}</p>")
+if items:
+  body.append("<ul>")
+  for item in items:
+    body.append(f"<li>{item}</li>")
+  body.append("</ul>")
+
+html = "\n".join([
+  "<!doctype html>",
+  "<html lang=\"en\">",
+  "<meta charset=\"utf-8\">",
+  f"<title>{title}</title>",
+  "<body>",
+  f"<h2>{title}</h2>",
+  *body,
+  "</body>",
+  "</html>",
+])
+out_path.write_text(html)
+PY
 else
   cat >"$NOTES_HTML" <<HTML
 <!doctype html>
