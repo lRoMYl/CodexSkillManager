@@ -13,7 +13,11 @@ if [[ -z "${APP_STORE_CONNECT_API_KEY_P8:-}" || -z "${APP_STORE_CONNECT_KEY_ID:-
   exit 1
 fi
 
-echo "$APP_STORE_CONNECT_API_KEY_P8" | sed 's/\\n/\n/g' > /tmp/app-store-connect-key.p8
+if [[ -f "$APP_STORE_CONNECT_API_KEY_P8" ]]; then
+  cp "$APP_STORE_CONNECT_API_KEY_P8" /tmp/app-store-connect-key.p8
+else
+  echo "$APP_STORE_CONNECT_API_KEY_P8" | sed 's/\\n/\n/g' > /tmp/app-store-connect-key.p8
+fi
 trap 'rm -f /tmp/app-store-connect-key.p8 /tmp/${APP_NAME}Notarize.zip' EXIT
 
 ARCHES_VALUE=${ARCHES:-"arm64 x86_64"}
