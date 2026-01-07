@@ -7,28 +7,60 @@ struct SkillListView: View {
 
     var body: some View {
         List(selection: $selection) {
-            ForEach(skills) { skill in
-                SkillRowView(skill: skill)
-                    .swipeActions(edge: .trailing) {
-                        Button(role: .destructive) {
-                            Task { await store.deleteSkills(ids: [skill.id]) }
-                        } label: {
-                            Label("Delete", systemImage: "trash")
+            Section {
+                ForEach(skills) { skill in
+                    SkillRowView(skill: skill)
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                                Task { await store.deleteSkills(ids: [skill.id]) }
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
                         }
-                    }
-            }
-            .onDelete { offsets in
-                let ids = offsets
-                    .filter { skills.indices.contains($0) }
-                    .map { skills[$0].id }
-                Task { await store.deleteSkills(ids: ids) }
+                }
+                .onDelete { offsets in
+                    let ids = offsets
+                        .filter { skills.indices.contains($0) }
+                        .map { skills[$0].id }
+                    Task { await store.deleteSkills(ids: ids) }
+                }
+            } header: {
+                SidebarHeaderView(skillCount: skills.count)
             }
         }
-        .navigationTitle("Skills")
         .listStyle(.sidebar)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    Task { await store.loadSkills() }
+                } label: {
+                    Label("Reload", systemImage: "arrow.clockwise")
+                }
+                .labelStyle(.iconOnly)
+            }
+        }
     }
 }
 
+private struct SidebarHeaderView: View {
+    let skillCount: Int
+
+    var body: some View {
+        HStack(alignment: .firstTextBaseline) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Codex Skills")
+                    .font(.title2.bold())
+                    .foregroundStyle(.primary)
+                Text("\(skillCount) skills")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+        }
+        .padding(.vertical, 6)
+        .textCase(nil)
+    }
+}
 private struct SkillRowView: View {
     let skill: Skill
 

@@ -123,7 +123,8 @@ import Observation
         selectedReferenceMarkdown = ""
 
         do {
-            selectedMarkdown = try String(contentsOf: skillURL, encoding: .utf8)
+            let raw = try String(contentsOf: skillURL, encoding: .utf8)
+            selectedMarkdown = stripFrontmatter(from: raw)
             detailState = .loaded
         } catch {
             detailState = .failed(error.localizedDescription)
@@ -146,7 +147,8 @@ import Observation
         referenceState = .loading
 
         do {
-            selectedReferenceMarkdown = try String(contentsOf: selectedReference.url, encoding: .utf8)
+            let raw = try String(contentsOf: selectedReference.url, encoding: .utf8)
+            selectedReferenceMarkdown = stripFrontmatter(from: raw)
             referenceState = .loaded
         } catch {
             referenceState = .failed(error.localizedDescription)
@@ -227,6 +229,25 @@ private func parseMarkdownFallback(from lines: [Substring]) -> SkillMetadata {
     }
 
     return SkillMetadata(name: title, description: description)
+}
+
+private func stripFrontmatter(from markdown: String) -> String {
+    let lines = markdown.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)
+    guard lines.first?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "---" else {
+        return markdown
+    }
+
+    var index = 1
+    while index < lines.count {
+        let line = lines[index].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if line == "---" {
+            let remaining = lines[(index + 1)...].map(String.init).joined(separator: "\n")
+            return remaining.trimmingCharacters(in: CharacterSet.newlines)
+        }
+        index += 1
+    }
+
+    return markdown
 }
 
 private func formatTitle(_ title: String) -> String {

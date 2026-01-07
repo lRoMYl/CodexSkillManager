@@ -30,15 +30,6 @@ struct SkillSplitView: View {
         }
         .searchable(text: $searchText, placement: .sidebar, prompt: "Filter skills")
         .toolbar(id: "main-toolbar") {
-            ToolbarItem(id: "reload") {
-                Button {
-                    Task { await store.loadSkills() }
-                } label: {
-                    Label("Reload", systemImage: "arrow.clockwise")
-                }
-                .labelStyle(.iconOnly)
-            }
-
             ToolbarItem(id: "open") {
                 Button {
                     openSelectedSkillFolder()

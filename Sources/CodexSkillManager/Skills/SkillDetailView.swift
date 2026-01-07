@@ -42,13 +42,6 @@ private struct SkillMarkdownView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(skill.displayName)
-                        .font(.largeTitle.bold())
-                    Text(skill.folderPath)
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                }
                 Markdown(markdown)
 
                 if !skill.references.isEmpty {
@@ -63,6 +56,8 @@ private struct SkillMarkdownView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
         }
+        .navigationTitle(skill.displayName)
+        .navigationSubtitle(skill.folderPath)
     }
 }
 
