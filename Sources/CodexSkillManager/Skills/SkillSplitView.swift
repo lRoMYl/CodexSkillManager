@@ -21,10 +21,10 @@ struct SkillSplitView: View {
 
         NavigationSplitView {
             SkillListView(
-                source: $source,
                 localSkills: filteredSkills,
-                localSelection: $store.selectedSkillID,
                 remoteSkills: remoteStore.skills,
+                source: $source,
+                localSelection: $store.selectedSkillID,
                 remoteSelection: $remoteStore.selectedSkillID
             )
         } detail: {

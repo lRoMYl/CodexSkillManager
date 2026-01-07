@@ -333,13 +333,3 @@ struct ImportSkillView: View {
         return nil
     }
 }
-
-private func formatTitle(_ title: String) -> String {
-    let normalized = title
-        .replacingOccurrences(of: "-", with: " ")
-        .replacingOccurrences(of: "_", with: " ")
-    return normalized
-        .split(separator: " ")
-        .map { $0.capitalized }
-        .joined(separator: " ")
-}
