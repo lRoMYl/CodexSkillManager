@@ -1,8 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
-  <channel>
-    <title>Codex Skill Manager</title>
-    <link>https://raw.githubusercontent.com/Dimillian/CodexSkillManager/main/appcast.xml</link>
-    <description>Codex Skill Manager updates</description>
-  </channel>
+    <channel>
+        <title>Codex Skill Manager</title>
+        <link>https://raw.githubusercontent.com/Dimillian/CodexSkillManager/main/appcast.xml</link>
+        <description>Codex Skill Manager updates</description>
+        <item>
+            <title>0.6.2</title>
+            <pubDate>Wed, 07 Jan 2026 20:07:03 +0100</pubDate>
+            <link>https://raw.githubusercontent.com/Dimillian/CodexSkillManager/main/appcast.xml</link>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>0.6.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>CodexSkillManager-0.6.2</title>
+<body>
+<h2>CodexSkillManager-0.6.2</h2>
+<p>Release notes not provided.</p>
+</body>
+</html>
+]]></description>
+            <enclosure url="https://github.com/Dimillian/CodexSkillManager/releases/download/v0.6.2/CodexSkillManager-0.6.2.zip" length="3247716" type="application/octet-stream" sparkle:edSignature="rnT5R75VWeJwHPO63rz50CELLSHSHfGB4ApSm9+x6DhqWP59mFMfSfsaRmfJwLh5K8FV0PsTSwgbGxzPETmfBQ=="/>
+        </item>
+    </channel>
 </rss>

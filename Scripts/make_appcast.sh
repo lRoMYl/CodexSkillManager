@@ -57,9 +57,21 @@ trap cleanup EXIT
 
 DOWNLOAD_URL_PREFIX=${SPARKLE_DOWNLOAD_URL_PREFIX:-"https://github.com/Dimillian/CodexSkillManager/releases/download/v${VERSION}/"}
 
-if ! command -v generate_appcast >/dev/null; then
-  echo "generate_appcast not found in PATH. Install Sparkle tools." >&2
-  exit 1
+GEN_APPCAST=$(command -v generate_appcast || true)
+TEMP_DIR=""
+cleanup_tools() {
+  if [[ -n "$TEMP_DIR" ]]; then
+    rm -rf "$TEMP_DIR"
+  fi
+}
+trap cleanup_tools EXIT
+
+if [[ -z "$GEN_APPCAST" ]]; then
+  TEMP_DIR=$(mktemp -d /tmp/sparkle-appcast.XXXXXX)
+  curl -sL -o "$TEMP_DIR/sparkle.tar.xz" \
+    "https://github.com/sparkle-project/Sparkle/releases/download/2.8.1/Sparkle-2.8.1.tar.xz"
+  tar -xf "$TEMP_DIR/sparkle.tar.xz" -C "$TEMP_DIR" ./bin/generate_appcast
+  GEN_APPCAST="$TEMP_DIR/bin/generate_appcast"
 fi
 
 WORK_DIR=$(mktemp -d /tmp/appcast.XXXXXX)
@@ -69,7 +81,7 @@ cp "$ZIP" "$WORK_DIR/$ZIP_NAME"
 cp "$NOTES_HTML" "$WORK_DIR/$ZIP_BASE.html"
 
 pushd "$WORK_DIR" >/dev/null
-generate_appcast \
+"$GEN_APPCAST" \
   --ed-key-file "$PRIVATE_KEY_FILE" \
   --download-url-prefix "$DOWNLOAD_URL_PREFIX" \
   --embed-release-notes \
