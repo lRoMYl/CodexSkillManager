@@ -5,6 +5,29 @@
         <link>https://raw.githubusercontent.com/Dimillian/CodexSkillManager/main/appcast.xml</link>
         <description>Codex Skill Manager updates</description>
         <item>
+            <title>1.2.3</title>
+            <pubDate>Thu, 08 Jan 2026 18:17:41 +0100</pubDate>
+            <link>https://raw.githubusercontent.com/Dimillian/CodexSkillManager/main/appcast.xml</link>
+            <sparkle:version>8</sparkle:version>
+            <sparkle:shortVersionString>1.2.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>CodexSkillManager-1.2.3</title>
+<body>
+<h2>CodexSkillManager-1.2.3</h2>
+<ul>
+<li>Add OpenCode as a supported local skill platform.</li>
+<li>Improve Clawdhub browsing with cached detail loading.</li>
+<li>Show skill stats consistently in the sidebar and detail view.</li>
+<li>Fix reload behavior and search typing responsiveness.</li>
+</ul>
+</body>
+</html>]]></description>
+            <enclosure url="https://github.com/Dimillian/CodexSkillManager/releases/download/v1.2.3/CodexSkillManager-1.2.3.zip" length="3615455" type="application/octet-stream" sparkle:edSignature="qQacEWD/FkZQ/kZ++GNUkfMprCv2oVTd1+0yWHqlVjhG/JoNezTQkz4XKxdlSdfSH+/zAUh1Z7rfHxHUAx0+DQ=="/>
+        </item>
+        <item>
             <title>1.2.2</title>
             <pubDate>Thu, 08 Jan 2026 13:29:25 +0100</pubDate>
             <link>https://raw.githubusercontent.com/Dimillian/CodexSkillManager/main/appcast.xml</link>
@@ -44,27 +67,6 @@
 </body>
 </html>]]></description>
             <enclosure url="https://github.com/Dimillian/CodexSkillManager/releases/download/v1.2.1/CodexSkillManager-1.2.1.zip" length="3598556" type="application/octet-stream" sparkle:edSignature="oK6tMGSNNqbYzksDfj89FLeLjR0VaqTu9wpjZerk7OX5nwkMUBcI8UChoqvrS4j3xlRqVJB6VGf+OB4/uu+9Cg=="/>
-        </item>
-        <item>
-            <title>1.2.0</title>
-            <pubDate>Thu, 08 Jan 2026 11:39:15 +0100</pubDate>
-            <link>https://raw.githubusercontent.com/Dimillian/CodexSkillManager/main/appcast.xml</link>
-            <sparkle:version>5</sparkle:version>
-            <sparkle:shortVersionString>1.2.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-            <description><![CDATA[<!doctype html>
-<html lang="en">
-<meta charset="utf-8">
-<title>CodexSkillManager-1.2.0</title>
-<body>
-<h2>CodexSkillManager-1.2.0</h2>
-<ul>
-<li>Show Clawdhub header for installed skills with current and latest version.</li>
-<li>Add update button to refresh installed skills across all platforms.</li>
-</ul>
-</body>
-</html>]]></description>
-            <enclosure url="https://github.com/Dimillian/CodexSkillManager/releases/download/v1.2.0/CodexSkillManager-1.2.0.zip" length="3558440" type="application/octet-stream"/>
         </item>
     </channel>
 </rss>
