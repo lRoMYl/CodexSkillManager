@@ -54,15 +54,20 @@ struct SkillListView: View {
         }
         .listStyle(.sidebar)
         .toolbar {
-            if source == .clawdhub {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        Task { await remoteStore.loadLatest() }
-                    } label: {
-                        Label("Reload", systemImage: "arrow.clockwise")
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    Task {
+                        switch source {
+                        case .local:
+                            await store.loadSkills()
+                        case .clawdhub:
+                            await remoteStore.loadLatest()
+                        }
                     }
-                    .labelStyle(.iconOnly)
+                } label: {
+                    Label("Reload", systemImage: "arrow.clockwise")
                 }
+                .labelStyle(.iconOnly)
             }
         }
     }
