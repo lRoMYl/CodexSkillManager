@@ -7,6 +7,7 @@ import Sparkle
 
 @main
 struct CodexSkillManagerApp: App {
+    @Environment(\.openWindow) private var openWindow
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var customPathStore: CustomPathStore
     @State private var store: SkillStore
@@ -26,6 +27,11 @@ struct CodexSkillManagerApp: App {
                 .environment(customPathStore)
         }
         .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About Codex Skill Manager") {
+                    openWindow(id: "about")
+                }
+            }
             CommandGroup(after: .appInfo) {
                 Button("Check for Updates…") {
                     appDelegate.checkForUpdates()
@@ -33,6 +39,10 @@ struct CodexSkillManagerApp: App {
                 .keyboardShortcut("u", modifiers: [.command, .option])
             }
         }
+        Window("About Codex Skill Manager", id: "about") {
+            AboutView()
+        }
+        .windowResizability(.contentSize)
     }
 }
 
