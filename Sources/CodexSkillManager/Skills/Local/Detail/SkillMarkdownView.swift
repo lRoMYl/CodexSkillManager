@@ -39,6 +39,7 @@ struct SkillMarkdownView: View {
                     installSection
                 }
                 Markdown(markdown)
+                    .textSelection(.enabled)
 
                 if !skill.references.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {

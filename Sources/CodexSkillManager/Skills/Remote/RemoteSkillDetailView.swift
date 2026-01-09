@@ -65,6 +65,7 @@ struct RemoteSkillDetailView: View {
             VStack(alignment: .leading, spacing: 16) {
                 headerView(for: skill)
                 Markdown(store.detailMarkdown)
+                    .textSelection(.enabled)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
